@@ -1,7 +1,7 @@
 package kitchen;
 
 
-import allclasses.*;
+import Food.*;
 
 import java.net.SocketException;
 import java.net.Socket;
@@ -127,6 +127,44 @@ public class Kitchen
     public void printOrders()
     {
         
+    }
+    
+    public void requestWaiter(int i)
+    {
+        try
+        {
+            ObjOut.writeUTF("Waiter");
+            ObjOut.flush();
+            
+            ObjOut.write(Orders.get(i).getWaiter());
+            ObjOut.flush();
+            
+            ObjOut.writeUTF("Kitchen request clarification for Table's " + Orders.get(i).GetTableNum());
+            ObjOut.flush();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error sending waiter request. " + e);
+        }
+    }
+    
+    public void orderReady(int i)
+    {
+        try
+        {
+            ObjOut.writeUTF("Ready");
+            ObjOut.flush();
+            
+            ObjOut.write(Orders.get(i).getWaiter());
+            ObjOut.flush();
+            
+            ObjOut.writeUTF("Table's " + Orders.get(i).GetTableNum() + " order is ready.");
+            ObjOut.flush();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error sending order ready. " + e);
+        }
     }
     
     public static void main(String argv[])
