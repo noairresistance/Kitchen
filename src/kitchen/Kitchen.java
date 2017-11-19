@@ -171,11 +171,6 @@ public class Kitchen
     {
         // test cases
         Kitchen newKitchen = new Kitchen();
-        newKitchen.Handshake();
-        
-        newKitchen.waittest();
-        newKitchen.requestWaiter(0);
-        newKitchen.orderReady(0);
-        
+        newKitchen.Handshake();        
     }
 }
