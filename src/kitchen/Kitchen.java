@@ -88,7 +88,7 @@ public class Kitchen
                         // read the order 
                         Order tempOrder = (Order)ObjIn.readObject();
                         
-                        //Orders[tempOrder.GetTableNum()-1] = tempOrder;
+                        Orders.add(tempOrder);
                         // test loop checking contents
                         for(int i = 0; i < tempOrder.GetOrderSize(); i++)
                         {
@@ -117,7 +117,7 @@ public class Kitchen
     {
         try 
         {
-            Thread.sleep(4000);
+            Thread.sleep(60*1000);
         } catch (InterruptedException ex) 
         {
             System.out.println("Error in test sleep thread" + ex);
@@ -136,7 +136,7 @@ public class Kitchen
             ObjOut.writeUTF("Waiter");
             ObjOut.flush();
             
-            ObjOut.write(Orders.get(i).getWaiter());
+            ObjOut.writeInt(Orders.get(i).getWaiter());
             ObjOut.flush();
             
             ObjOut.writeUTF("Kitchen request clarification for Table's " + Orders.get(i).GetTableNum());
@@ -155,7 +155,7 @@ public class Kitchen
             ObjOut.writeUTF("Ready");
             ObjOut.flush();
             
-            ObjOut.write(Orders.get(i).getWaiter());
+            ObjOut.writeInt(Orders.get(i).getWaiter());
             ObjOut.flush();
             
             ObjOut.writeUTF("Table's " + Orders.get(i).GetTableNum() + " order is ready.");
@@ -172,6 +172,10 @@ public class Kitchen
         // test cases
         Kitchen newKitchen = new Kitchen();
         newKitchen.Handshake();
+        
+        newKitchen.waittest();
+        newKitchen.requestWaiter(0);
+        newKitchen.orderReady(0);
         
     }
 }
