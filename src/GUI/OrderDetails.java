@@ -5,23 +5,43 @@
  */
 package GUI;
 
+import Food.Food;
+import Food.Order;
 import Listeners.Navigator;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import kitchen.Kitchen;
 
 public class OrderDetails extends javax.swing.JPanel
 {
     Kitchen kitchen;
-    Navigator navigator;
+    //Navigator navigator;
 
     /**
      * Creates new form OrderDetails
      */
-    public OrderDetails(Kitchen kitchen, Navigator navigator)
+    public OrderDetails(Kitchen kitchen)
     {
         initComponents();
         this.kitchen = kitchen;
-        this.navigator = navigator;
         setSize(388, 400);
+        
+        //Print out ordered food items and their ingrediants
+        //This only looks at the 0th index of Orders
+        for(Food item : kitchen.getOrders().get(0).getFoodItem())
+        {
+            add(new JLabel("  " + item.GetName()));
+            
+            for(String i : item.getIngredientList())
+            {
+                add(new JLabel("  " + i));
+            }
+            add(new JLabel("                                    "));
+            
+        }
+        
+        
+        
         
     }
 
@@ -35,16 +55,8 @@ public class OrderDetails extends javax.swing.JPanel
     private void initComponents()
     {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setOpaque(false);
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
     }// </editor-fold>//GEN-END:initComponents
 
 

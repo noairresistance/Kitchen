@@ -50,26 +50,27 @@ public class MainPanel extends javax.swing.JPanel
         setSize(400, 520);
         this.kitchen = kitchen;
      
+        updateOrders();
+         
+    }
+    
+    public void updateOrders()
+    {
         //Creates a separate thread to wait for orders to be added
         Thread ordersListThread = new Thread(new Runnable()
         {
             @Override
             public void run()
             {
-                infoPanel.add(new OrdersList(kitchen, navigator));
+                //infoPanel.add(new OrdersList(kitchen, navigator));
+                infoPanel.add(new OrdersList(kitchen, infoPanel));
             }
         });
         
         ordersListThread.start();
-        
-
-        
     }
     
-    public void updateOrders(ArrayList<Order> orders)
-    {
-        this.orders = orders;
-    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -117,10 +118,31 @@ public class MainPanel extends javax.swing.JPanel
         );
 
         orderList.setText("Order List");
+        orderList.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                orderListMouseClicked(evt);
+            }
+        });
 
         callWaiter.setText("Call Waiter");
+        callWaiter.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                callWaiterMouseClicked(evt);
+            }
+        });
 
         orderUp.setText("Order Up");
+        orderUp.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                orderUpMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -153,6 +175,25 @@ public class MainPanel extends javax.swing.JPanel
                 .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void orderListMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_orderListMouseClicked
+    {//GEN-HEADEREND:event_orderListMouseClicked
+        updateOrders();
+    }//GEN-LAST:event_orderListMouseClicked
+
+    private void orderUpMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_orderUpMouseClicked
+    {//GEN-HEADEREND:event_orderUpMouseClicked
+        
+        //Only removes the 0th indexed order
+        kitchen.orderReady(0);
+        kitchen.getOrders().remove(0);
+        updateOrders();
+    }//GEN-LAST:event_orderUpMouseClicked
+
+    private void callWaiterMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_callWaiterMouseClicked
+    {//GEN-HEADEREND:event_callWaiterMouseClicked
+        kitchen.requestWaiter(0);
+    }//GEN-LAST:event_callWaiterMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

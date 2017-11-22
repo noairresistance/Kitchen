@@ -125,16 +125,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Order List"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="orderListMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="callWaiter">
       <Properties>
         <Property name="text" type="java.lang.String" value="Call Waiter"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="callWaiterMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="orderUp">
       <Properties>
         <Property name="text" type="java.lang.String" value="Order Up"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="orderUpMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

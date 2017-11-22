@@ -10,6 +10,7 @@ import Listeners.Navigator;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import kitchen.Kitchen;
 
 public class OrdersList extends javax.swing.JPanel
@@ -18,16 +19,20 @@ public class OrdersList extends javax.swing.JPanel
     Navigator navigator;
     Kitchen kitchen;
     int orderCount = 0;
+    JPanel infoPanel;
     /**
      * Creates new form OrdersList
      */
-    public OrdersList(Kitchen kitchen, Navigator navigator)
+    public OrdersList(Kitchen kitchen, JPanel infoPanel)
     {
         initComponents();
         setSize(388, 400);
-        this.navigator = navigator;
         this.kitchen = kitchen;
+        this.infoPanel = infoPanel;
         
+        infoPanel.removeAll();
+        infoPanel.repaint();
+        infoPanel.revalidate();
         
         //Waits for an order to be placed
         while(kitchen.getOrders().isEmpty())
@@ -42,22 +47,33 @@ public class OrdersList extends javax.swing.JPanel
             }
         }
         
-        populateOrders(kitchen.getOrders(), navigator);
+        populateOrders(kitchen.getOrders());
         repaint();
         revalidate();        
 
     }
+   
     
-
-    public void populateOrders(ArrayList<Order> orders, Navigator navigator)
+    public void populateOrders(ArrayList<Order> orders)
     {
         for(Order order : orders)
         {
-            add(new OrderNumberLabel(Integer.toString(order.getOrderNumber()), navigator));
+            add(new OrderNumberLabel(this, Integer.toString(order.getOrderNumber())));
             orderCount++;
         }
         
+        
+        
     }
+    
+    public void goToOrderDetails()
+    {
+        infoPanel.removeAll();
+        infoPanel.add(new OrderDetails(kitchen));
+        infoPanel.repaint();
+        infoPanel.revalidate();
+    }
+
     
     /**
      * This method is called from within the constructor to initialize the form.

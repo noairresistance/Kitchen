@@ -11,6 +11,7 @@ public class OrderNumberLabel extends javax.swing.JPanel
 {
     
     Navigator navigator;
+    OrdersList ordersList;
 
     /**
      * Creates new form TableNumberLabel
@@ -20,6 +21,16 @@ public class OrderNumberLabel extends javax.swing.JPanel
         initComponents();
         setSize(388, 50);
         this.navigator = navigator;
+        
+        orderNumber.setText("Order # " + orderNumString);
+       
+    }
+    
+    public OrderNumberLabel(OrdersList ordersList, String orderNumString)
+    {
+        initComponents();
+        setSize(388, 50);
+        this.ordersList = ordersList;
         
         orderNumber.setText("Order # " + orderNumString);
        
@@ -60,6 +71,8 @@ public class OrderNumberLabel extends javax.swing.JPanel
     private void orderNumberMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_orderNumberMouseClicked
     {//GEN-HEADEREND:event_orderNumberMouseClicked
         //navigator.goToOrderDetails();
+       
+        ordersList.goToOrderDetails();
         
     }//GEN-LAST:event_orderNumberMouseClicked
 
