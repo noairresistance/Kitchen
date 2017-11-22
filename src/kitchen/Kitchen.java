@@ -2,6 +2,9 @@ package kitchen;
 
 
 import Food.*;
+import GUI.Frame;
+import GUI.OrdersList;
+import Listeners.Navigator;
 
 import java.net.SocketException;
 import java.net.Socket;
@@ -9,6 +12,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Kitchen
 {
@@ -21,6 +26,7 @@ public class Kitchen
     public Kitchen()
     {
         Orders = new ArrayList();   
+        createFrame();//Creates Kitchen Frame   
     }
     
     // this function is used to connect the waiter to the server
@@ -95,7 +101,9 @@ public class Kitchen
                             System.out.println(tempOrder.GetItem(i).GetName());
                             System.out.println(((Food)tempOrder.GetItem(i)).GetIngredients(0));
                         }
-                        // add order to list of orders
+                        // Send orders to the GUI
+                        
+                        
                     }
                     else if(Message.equals("Shutdown"))
                     {
@@ -167,10 +175,25 @@ public class Kitchen
         }
     }
     
+    //Creates a new Frame and passes this kitchen object to it
+    public void createFrame()
+    {
+        new Thread(new Frame(this)).start();
+  
+    }
+    
+    public ArrayList<Order> getOrders()
+    {
+        return Orders;
+    }
+    
+
+    
     public static void main(String argv[])
     {
         // test cases
         Kitchen newKitchen = new Kitchen();
-        newKitchen.Handshake();        
+        newKitchen.Handshake(); 
+        
     }
 }
